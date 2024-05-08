@@ -8,17 +8,24 @@ library.add(fas);
 const RandomIconComponent = () => {
   const [icon, setIcon] = useState(null);
   const [showIcon, setShowIcon] = useState(false);
-  
+  const [timeoutId, setTimeoutId] = useState(null);
+
   const allIconNames = Object.keys(fas);
 
   const getRandomIcon = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
     const randomIconName =
       allIconNames[Math.floor(Math.random() * allIconNames.length)];
 
-    setTimeout(() => {
+    const newTimeoutId = setTimeout(() => {
       setIcon(fas[randomIconName]);
       setShowIcon(true);
     }, 3000);
+
+    setTimeoutId(newTimeoutId); 
   };
 
   return (
